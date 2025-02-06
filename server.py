@@ -14,7 +14,7 @@ pytrends = TrendReq(hl="en-US", tz=360)
 POLYGON_API_KEY = os.getenv("POLYGON_API_KEY")
 
 if not POLYGON_API_KEY:
-    raise ValueError("⚠️ POLYGON_API_KEY is missing.")
+    raise ValueError("POLYGON_API_KEY is missing.")
 
 @app.route("/api/stock_prices", methods=["GET"])
 def get_stock_prices():
