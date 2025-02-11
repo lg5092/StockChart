@@ -4,6 +4,8 @@ window.onload = function () {
     const tickerInput = document.getElementById('tickerInput');
     const fetchButton = document.getElementById('fetchButton');
 
+    const backendUrl = "https://osyssim.onrender.com"; // Replace with your actual backend URL
+
     //Stock Prices Chart
     const pricesChart = new Chart(pricesCtx, {
         type: 'line',
@@ -41,7 +43,7 @@ window.onload = function () {
     // Fetch Stock Prices
     async function fetchStockPrices(ticker) {
         try {
-            const url = `http://127.0.0.1:5000/api/stock_prices?ticker=${ticker}`;
+            const url = `${backendUrl}/api/stock_prices?ticker=${ticker}`;
             console.log(`Fetching stock data for ${ticker}...`);
     
             const response = await fetch(url);
@@ -77,7 +79,7 @@ window.onload = function () {
         try {
             console.log(`Fetching Google Trends for ${ticker}...`);
 
-            const response = await fetch(`http://127.0.0.1:5000/api/google_trends?ticker=${ticker}`);
+            const response = await fetch(`${backendUrl}/api/google_trends?ticker=${ticker}`);
             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
             const data = await response.json();
