@@ -4,7 +4,7 @@ window.onload = function () {
     const tickerInput = document.getElementById('tickerInput');
     const fetchButton = document.getElementById('fetchButton');
 
-    const backendUrl = "https://osyssim.onrender.com"; // Replace with your actual backend URL
+    const backendUrl = "https://stockchart-dxh1.onrender.com"; // Replace with your actual backend URL
 
     //Stock Prices Chart
     const pricesChart = new Chart(pricesCtx, {
