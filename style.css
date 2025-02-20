@@ -31,22 +31,36 @@ button:hover {
 /* ✅ Flexbox Layout to Keep Charts Side-by-Side */
 .chart-container {
     display: flex;  /* Enables side-by-side layout */
-    justify-content: space-between; /* Ensures charts are spaced evenly */
-    align-items: center; /* Aligns charts vertically */
-    gap: 20px; /* Adds space between charts */
+    flex-wrap: wrap;
+    justify-content: center; /* Ensures charts are spaced evenly */
+    align-items: flex-start; /* Aligns charts vertically */
+    gap: 30px; /* Adds space between charts */
     margin: 20px auto; /* Centers the container */
-    max-width: 90%; /* Prevents it from stretching too wide */
+    max-width: 95%; /* Prevents it from stretching too wide */
 }
 
 /* ✅ Ensuring each chart takes up proper space */
 .chart-container div {
     flex: 1; /* Ensures each div takes up equal space */
-    max-width: 45%; /* Limits width to fit side by side */
-    min-width: 300px; /* Ensures they don’t shrink too much */
+    max-width: 48%; /* Limits width to fit side by side */
+    min-width: 400px; /* Ensures they don’t shrink too much */
+}
+
+.trends-container {
+    flex: 1.2;
+    max-width: 55%;
 }
 
 /* ✅ Make charts responsive */
 canvas {
     width: 100% !important; /* Ensures the canvas fills its container */
-    height: 350px !important; /* Sets a fixed height for better consistency */
+    height: 400px !important; /* Sets a fixed height for better consistency */
+}
+@media (max-width: 900px) {
+    .chart-container {
+        flex-direction: column;
+    }
+    .chart-container div {
+        max-width: 100%;
+    }
 }
