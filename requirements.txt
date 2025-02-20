@@ -275,7 +275,7 @@ QtPy @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/qtpy_1701
 queuelib @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/queuelib_1699261318698/work
 referencing @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/referencing_1701805251345/work
 regex @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_a4s602267k/croot/regex_1726650054289/work
-requests @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_4f6nxsozkv/croot/requests_1721410884113/work
+requests==2.32.3
 requests-file @ file:///Users/ktietz/demo/mc3/conda-bld/requests-file_1629455781986/work
 requests-toolbelt @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/requests-toolbelt_1699241266818/work
 rfc3339-validator @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/rfc3339-validator_1699261389119/work
