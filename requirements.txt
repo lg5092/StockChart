@@ -36,14 +36,14 @@ beautifulsoup4 @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T
 binaryornot @ file:///tmp/build/80754af9/binaryornot_1617751525010/work
 black @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_bf0nk5tyan/croot/black_1725573867948/work
 bleach @ file:///opt/conda/conda-bld/bleach_1641577558959/work
-blinker @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/blinker_1699240468146/work
+blinker==1.9.0
 bokeh @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_7896bxssvv/croot/bokeh_1727914489991/work
 boltons @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/boltons_1699245321609/work
 botocore @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_ffxxgfgg06/croot/botocore_1714460536101/work
 Bottleneck @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_19gnn4b1vz/croot/bottleneck_1709069916591/work
 Brotli @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_67j4p18ie3/croot/brotli-split_1714483158198/work
 cachetools @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_dd5gv9zyno/croot/cachetools_1713977103134/work
-certifi @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_c7dh9wvd8f/croot/certifi_1725551679893/work/certifi
+certifi @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_d0mlk2yciq/croot/certifi_1738623741969/work/certifi
 cffi @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_a1n4t3qsjy/croot/cffi_1726856449083/work
 chardet @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/chardet_1699252638625/work
 charset-normalizer @ file:///croot/charset-normalizer_1721748349566/work
@@ -52,7 +52,7 @@ cloudpickle @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/ab
 colorama @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/colorama_1699282337864/work
 colorcet @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_db11vs0_s8/croot/colorcet_1709758355147/work
 comm @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_aef2nlxc2o/croot/comm_1709322866518/work
-conda @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_d12oqipwuh/croot/conda_1729193905986/work
+conda @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_42pbo0z1zj/croot/conda_1736277824091/work
 conda-build @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_63_707h1h3/croot/conda-build_1726839926400/work
 conda-content-trust @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_78eyko59n2/croot/conda-content-trust_1714483158098/work
 conda-libmamba-solver @ file:///croot/conda-libmamba-solver_1727775630457/work/src
@@ -87,7 +87,7 @@ executing @ file:///opt/conda/conda-bld/executing_1646925071911/work
 fastjsonschema @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/python-fastjsonschema_1699241084188/work
 filelock @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/filelock_1701807880662/work
 flake8 @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_165ba74yi9/croot/flake8_1708965268668/work
-Flask @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_0bn8z9nupr/croot/flask_1716545880759/work
+Flask==3.1.0
 Flask-Cors==5.0.0
 fonttools @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_801fru8lup/croot/fonttools_1713551493489/work
 frozendict @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_f2kfyv072k/croot/frozendict_1713194840232/work
@@ -189,7 +189,6 @@ notebook @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_5
 notebook_shim @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/notebook-shim_1707339593183/work
 numba @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_4f8frhozqf/croot/numba_1720540983760/work
 numexpr @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/numexpr_1699258484110/work
-numpy @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_b7iptlxgej/croot/numpy_and_numpy_base_1708638622773/work/dist/numpy-1.26.4-cp312-cp312-macosx_10_9_x86_64.whl#sha256=17c6374322464ccb505fe098301a221fc8d08783063c9c532ee2e0ac2b7f4983
 numpydoc @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_47wa5q47gb/croot/numpydoc_1718279184243/work
 openpyxl @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_781kn48vkm/croot/openpyxl_1721752954568/work
 overrides @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/overrides_1701805937714/work
@@ -336,6 +335,7 @@ toml @ file:///tmp/build/80754af9/toml_1616166611790/work
 tomli @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/tomli_1699238675700/work
 tomlkit @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/tomlkit_1699241429121/work
 toolz @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/toolz_1699240342066/work
+torch==2.2.2
 tornado @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_7e0ruwlfee/croot/tornado_1718740118099/work
 tqdm @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_5akmb2c3eu/croot/tqdm_1724853941623/work
 traitlets @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_f49losghmg/croot/traitlets_1718227069025/work
@@ -354,7 +354,7 @@ watchdog @ file:///Users/builder/cbouss/crwatchdog/watchdog_1717165253549/work
 wcwidth @ file:///Users/ktietz/demo/mc3/conda-bld/wcwidth_1629357192024/work
 webencodings @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/webencodings_1699250987289/work
 websocket-client @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_8c3cjp8r36/croot/websocket-client_1715878317325/work
-Werkzeug @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_53yi9ymayw/croot/werkzeug_1716533323400/work
+Werkzeug==3.1.3
 whatthepatch @ file:///Users/builder/cbouss/perseverance-python-buildout/croot/whatthepatch_1699251044124/work
 wheel==0.44.0
 widgetsnbextension @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_55iz0tfo89/croot/widgetsnbextension_1710960056659/work
