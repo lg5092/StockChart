@@ -34,21 +34,21 @@ button:hover {
     flex-wrap: wrap;
     justify-content: center; /* Ensures charts are spaced evenly */
     align-items: flex-start; /* Aligns charts vertically */
-    gap: 30px; /* Adds space between charts */
+    gap: 40px; /* Adds space between charts */
     margin: 20px auto; /* Centers the container */
-    max-width: 95%; /* Prevents it from stretching too wide */
+    max-width: 98%; /* Prevents it from stretching too wide */
 }
 
 /* ✅ Ensuring each chart takes up proper space */
 .chart-container div {
     flex: 1; /* Ensures each div takes up equal space */
-    max-width: 48%; /* Limits width to fit side by side */
-    min-width: 400px; /* Ensures they don’t shrink too much */
+    max-width: 80%; /* Limits width to fit side by side */
+    min-width: 500px; /* Ensures they don’t shrink too much */
 }
 
 .trends-container {
-    flex: 1.2;
-    max-width: 55%;
+    flex: 1.3;
+    max-width: 85%;
 }
 
 /* ✅ Make charts responsive */
