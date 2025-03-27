@@ -1,16 +1,17 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import requests
 import os
 import datetime
-from flask_cors import CORS
 from pytrends.request import TrendReq 
 
 app = Flask(__name__)
-CORS(app)  # Frontend requests 
+
+# Enable CORS for ALL domains (temporary fix)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 pytrends = TrendReq(hl="en-US", tz=360)
 
-# Hidden API
 POLYGON_API_KEY = os.getenv("POLYGON_API_KEY")
 
 if not POLYGON_API_KEY:
@@ -22,7 +23,6 @@ def get_stock_prices():
     if not ticker:
         return jsonify({"error": "Ticker symbol is required"}), 400
 
-    # gather last 6 months
     today = datetime.date.today()
     six_months_ago = today - datetime.timedelta(days=180)
 
@@ -48,7 +48,6 @@ def get_google_trends():
     search_term = f"{ticker} stock"
 
     try:
-        # last 6 months
         end_date = datetime.datetime.utcnow().strftime('%Y-%m-%d')
         start_date = (datetime.datetime.utcnow() - datetime.timedelta(days=180)).strftime('%Y-%m-%d')
         timeframe = f"{start_date} {end_date}"
@@ -61,8 +60,7 @@ def get_google_trends():
         if data.empty:
             return jsonify({"error": "No data found for Google Trends."})
 
-        #JSONify
-        trends = {date.strftime('%Y-%m-%d'): int(value) for date, value in data[search_term].items()}
+        trends = {date.strftime('%m-%d-%Y'): int(value) for date, value in data[search_term].items()}
         
         return jsonify({"ticker": ticker, "trends": trends})
     
@@ -70,4 +68,4 @@ def get_google_trends():
         return jsonify({"error": f"Google Trends request failed: {str(e)}"})
 
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
