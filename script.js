@@ -1,16 +1,12 @@
 window.onload = function () {
-    // Grab references to HTML elements
     const pricesCtx = document.getElementById('pricesChart').getContext('2d');
     const trendsCtx = document.getElementById('trendsChart').getContext('2d');
     const tickerInput = document.getElementById('tickerInput');
     const fetchButton = document.getElementById('fetchButton');
 
-    // Replace with your actual backend URL
     const backendUrl = "https://stockchart-ubee.onrender.com";
 
-    // --------------------------------------------------
-    // Create the Stock Prices Chart
-    // --------------------------------------------------
+
     const pricesChart = new Chart(pricesCtx, {
         type: 'line',
         data: {
@@ -31,9 +27,6 @@ window.onload = function () {
         }
     });
 
-    // --------------------------------------------------
-    // Create the Google Trends Chart
-    // --------------------------------------------------
     const trendsChart = new Chart(trendsCtx, {
         type: 'line',
         data: {
@@ -57,9 +50,6 @@ window.onload = function () {
         }
     });
 
-    // --------------------------------------------------
-    // Handle Button Click: Fetch Both Data Sets
-    // --------------------------------------------------
     fetchButton.addEventListener('click', () => {
         const ticker = tickerInput.value.trim().toUpperCase();
         if (ticker) {
@@ -70,9 +60,6 @@ window.onload = function () {
         }
     });
 
-    // --------------------------------------------------
-    // Fetch Stock Prices
-    // --------------------------------------------------
     async function fetchStockPrices(ticker) {
         try {
             const url = `${backendUrl}/api/stock_prices?ticker=${ticker}`;
@@ -95,10 +82,8 @@ window.onload = function () {
                 return;
             }
 
-            // Sort the stock data by timestamp (ascending)
             const sortedResults = data.results.sort((a, b) => a.t - b.t);
 
-            // Convert timestamps to mm/dd/yyyy strings
             const times = sortedResults.map(item =>
                 new Date(item.t).toLocaleDateString('en-US', {
                     month: '2-digit',
@@ -107,7 +92,6 @@ window.onload = function () {
                 })
             );
 
-            // Extract the closing prices
             const prices = sortedResults.map(item => item.c);
 
             updatePricesChart(times, prices);
@@ -123,9 +107,6 @@ window.onload = function () {
         pricesChart.update();
     }
 
-    // --------------------------------------------------
-    // Fetch Google Trends
-    // --------------------------------------------------
     async function fetchGoogleTrends(ticker) {
         try {
             const url = `${backendUrl}/api/google_trends?ticker=${ticker}`;
@@ -148,13 +129,10 @@ window.onload = function () {
                 return;
             }
 
-            // data.trends is an object keyed by date strings: { "2025-01-01": 12, "2025-02-01": 20, ... }
 
-            // 1) Extract all date keys and sort them chronologically
             const dateKeys = Object.keys(data.trends);
             const sortedDateStrings = dateKeys.sort((a, b) => new Date(a) - new Date(b));
 
-            // 2) Format each date as mm/dd/yyyy
             const formattedDates = sortedDateStrings.map(dateString =>
                 new Date(dateString).toLocaleDateString('en-US', {
                     month: '2-digit',
@@ -163,7 +141,6 @@ window.onload = function () {
                 })
             );
 
-            // 3) Build the corresponding interest array in the same order
             const interest = sortedDateStrings.map(dateString => data.trends[dateString]);
 
             updateTrendsChart(formattedDates, interest);

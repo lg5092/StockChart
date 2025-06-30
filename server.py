@@ -7,7 +7,6 @@ from pytrends.request import TrendReq
 
 app = Flask(__name__)
 
-# Enable CORS for ALL domains (temporary fix)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 pytrends = TrendReq(hl="en-US", tz=360)
@@ -60,7 +59,7 @@ def get_google_trends():
         if data.empty:
             return jsonify({"error": "No data found for Google Trends."})
 
-        trends = {date.strftime('%m-%d-%Y'): int(value) for date, value in data[search_term].items()}
+        trends = {date.strftime('%Y-%m-%d'): int(value) for date, value in data[search_term].items()}
         
         return jsonify({"ticker": ticker, "trends": trends})
     

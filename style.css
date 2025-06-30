@@ -28,7 +28,7 @@ button:hover {
     background-color: #218838;
 }
 
-/* ✅ Flexbox Layout to Keep Charts Side-by-Side */
+/*  Flexbox Layout to Keep Charts Side-by-Side */
 .chart-container {
     display: flex;  /* Enables side-by-side layout */
     flex-wrap: wrap;
@@ -39,7 +39,7 @@ button:hover {
     max-width: 98%; /* Prevents it from stretching too wide */
 }
 
-/* ✅ Ensuring each chart takes up proper space */
+/*  Ensuring each chart takes up proper space */
 .chart-container div {
     flex: 1; /* Ensures each div takes up equal space */
     max-width: 80%; /* Limits width to fit side by side */
