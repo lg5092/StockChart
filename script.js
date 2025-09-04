@@ -154,9 +154,14 @@ window.onload = function () {
         }
   
         const sorted = data.results.slice().sort((a, b) => a.t - b.t);
-        const times = sorted.map(it =>
-          new Date(it.t).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' })
-        );
+        const etFmt = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'America/New_York',
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric'
+          });
+      
+        const times = sorted.map(it => etFmt.format(it.t)); 
         const prices = sorted.map(it => it.c);
   
         saveCache(cacheKey, { times, prices });
@@ -168,7 +173,7 @@ window.onload = function () {
         if (cached) {
           updatePricesChart(cached.times, cached.prices);
           setBannerQuiet("Showing cached prices while reconnecting…");
-          return true; // we showed something
+          return true; 
         } else {
           setBannerQuiet("Trouble loading prices. Will retry automatically.");
           return false;
