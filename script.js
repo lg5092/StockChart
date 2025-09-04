@@ -176,8 +176,14 @@ const etDate = (() => {
       
           const sorted = data.results.slice().sort((a, b) => a.t - b.t);
       
-          // IMPORTANT: label each bar by its ET trading day
-          const times = sorted.map(it => etDate(it.t));   // <- FIX
+          // ✅ Format daily bars in UTC so the calendar date matches the trading day
+          const utcFmt = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'UTC',
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric'
+          });
+          const times  = sorted.map(it => utcFmt.format(it.t)); // label as MM/DD/YYYY (UTC)
           const prices = sorted.map(it => it.c);
       
           saveCache(cacheKey, { times, prices });
@@ -195,8 +201,7 @@ const etDate = (() => {
             return false;
           }
         }
-      }
-      
+      }      
   
     async function fetchGoogleTrends(ticker) {
       const cacheKey = `trends:${ticker}`;
