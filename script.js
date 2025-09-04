@@ -65,6 +65,27 @@ window.onload = function () {
         await new Promise(r => setTimeout(r, delay * (2 ** attempt)));
       }
     }
+
+    // Format a UTC ms timestamp as an ET calendar date (MM/DD/YYYY) robustly.
+const etDate = (() => {
+    let fmt;
+    try {
+      fmt = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/New_York',
+        year: 'numeric', month: '2-digit', day: '2-digit'
+      });
+    } catch { /* very old browser fallback */ }
+    return (ms) => {
+      if (fmt) return fmt.format(ms);
+      // Fallback: format as UTC to avoid local TZ shifting (still better than PT)
+      const d = new Date(ms);
+      const y = d.getUTCFullYear();
+      const m = String(d.getUTCMonth() + 1).padStart(2, '0');
+      const day = String(d.getUTCDate()).padStart(2, '0');
+      return `${m}/${day}/${y}`;
+    };
+  })();
+  
   
     // ===== Simple localStorage cache =====
     function saveCache(key, value) {
@@ -140,46 +161,42 @@ window.onload = function () {
   
     // ===== Data fetchers with retry + cache =====
     async function fetchStockPrices(ticker) {
-      const cacheKey = `prices:${ticker}`;
-      try {
-        const url = `${backendUrl}/api/stock_prices?ticker=${ticker}`;
-        const res = await fetchWithRetry(url, { retries: 3, delay: 1000, label: "prices" });
-        const data = await res.json();
-  
-        if (!data.results || !data.results.length) {
-          const cached = loadCache(cacheKey, 15 * 60 * 1000); // 15 minutes
-          if (cached) updatePricesChart(cached.times, cached.prices);
-          setBannerQuiet("No stock data found.");
-          return false;
-        }
-  
-        const sorted = data.results.slice().sort((a, b) => a.t - b.t);
-        const etFmt = new Intl.DateTimeFormat('en-US', {
-            timeZone: 'America/New_York',
-            month: '2-digit',
-            day: '2-digit',
-            year: 'numeric'
-          });
+        const cacheKey = `prices:${ticker}`;
+        try {
+          const url = `${backendUrl}/api/stock_prices?ticker=${ticker}`;
+          const res = await fetchWithRetry(url, { retries: 3, delay: 1000, label: "prices" });
+          const data = await res.json();
       
-        const times = sorted.map(it => etFmt.format(it.t)); 
-        const prices = sorted.map(it => it.c);
-  
-        saveCache(cacheKey, { times, prices });
-        updatePricesChart(times, prices);
-        return true;
-      } catch (err) {
-        console.error('Error fetching stock prices:', err);
-        const cached = loadCache(cacheKey, 15 * 60 * 1000);
-        if (cached) {
-          updatePricesChart(cached.times, cached.prices);
-          setBannerQuiet("Showing cached prices while reconnecting…");
-          return true; 
-        } else {
-          setBannerQuiet("Trouble loading prices. Will retry automatically.");
-          return false;
+          if (!data.results || !data.results.length) {
+            const cached = loadCache(cacheKey, 15 * 60 * 1000);
+            if (cached) updatePricesChart(cached.times, cached.prices);
+            setBannerQuiet("No stock data found.");
+            return false;
+          }
+      
+          const sorted = data.results.slice().sort((a, b) => a.t - b.t);
+      
+          // IMPORTANT: label each bar by its ET trading day
+          const times = sorted.map(it => etDate(it.t));   // <- FIX
+          const prices = sorted.map(it => it.c);
+      
+          saveCache(cacheKey, { times, prices });
+          updatePricesChart(times, prices);
+          return true;
+        } catch (err) {
+          console.error('Error fetching stock prices:', err);
+          const cached = loadCache(cacheKey, 15 * 60 * 1000);
+          if (cached) {
+            updatePricesChart(cached.times, cached.prices);
+            setBannerQuiet("Showing cached prices while reconnecting…");
+            return true;
+          } else {
+            setBannerQuiet("Trouble loading prices. Will retry automatically.");
+            return false;
+          }
         }
       }
-    }
+      
   
     async function fetchGoogleTrends(ticker) {
       const cacheKey = `trends:${ticker}`;
