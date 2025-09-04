@@ -58,3 +58,9 @@ canvas {
         max-width: 100%;
     }
 }
+
+.banner{position:fixed;top:0;left:0;right:0;padding:8px 12px;background:#fff3cd;border-bottom:1px solid #ffeeba;font:14px/1.4 system-ui;color:#7a5b00;z-index:9999}
+.banner.hidden{display:none}
+.banner .spinner{display:inline-block;width:12px;height:12px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;margin-right:8px;vertical-align:-2px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+body{padding-top:36px;} 
