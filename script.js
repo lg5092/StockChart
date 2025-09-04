@@ -7,6 +7,19 @@ window.onload = function () {
     const backendUrl = "https://stockchart-ubee.onrender.com";
 
 
+    async function fetchWithRetry(url, { retries = 4, delay = 1000 } = {}) {
+        for (let attempt = 0; attempt <= retries; attempt++) {
+            try {
+                const res = await fetch(url, { cache: 'no-store' });
+                if (res.ok) return res;
+                if (attempt === retries) throw new Error(`${res.status} ${res.statusText}`);
+            } catch (err) {
+                if (attempt === retries) throw err;
+            }
+            await new Promise(r => setTimeout(r, delay * (2 ** attempt)));
+        }
+    }
+    
     const pricesChart = new Chart(pricesCtx, {
         type: 'line',
         data: {
@@ -50,15 +63,23 @@ window.onload = function () {
         }
     });
 
-    fetchButton.addEventListener('click', () => {
+    fetchButton.addEventListener('click', async () => {
         const ticker = tickerInput.value.trim().toUpperCase();
-        if (ticker) {
-            fetchStockPrices(ticker);
-            fetchGoogleTrends(ticker);
-        } else {
+        if (!ticker) {
             alert('Please enter a valid stock ticker.');
+            return;
+        }
+    
+        try {
+            await fetchWithRetry(`${backendUrl}/health`, { retries: 4, delay: 1000 });
+                fetchStockPrices(ticker);
+            fetchGoogleTrends(ticker);
+        } catch (e) {
+            console.error('Backend health check failed:', e);
+            alert('Server is unavailable right now. Please try again.');
         }
     });
+    
 
     async function fetchStockPrices(ticker) {
         try {

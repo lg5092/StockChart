@@ -1,11 +1,9 @@
-/* Center input and button */
 .input-container {
     display: flex;
     justify-content: center;
     margin: 20px 0;
 }
 
-/* Style for input field */
 input[type="text"] {
     width: 200px;
     padding: 8px;
@@ -14,7 +12,6 @@ input[type="text"] {
     border-radius: 4px;
 }
 
-/* Style for fetch button */
 button {
     padding: 8px 12px;
     border: none;
@@ -28,22 +25,20 @@ button:hover {
     background-color: #218838;
 }
 
-/*  Flexbox Layout to Keep Charts Side-by-Side */
 .chart-container {
-    display: flex;  /* Enables side-by-side layout */
+    display: flex;  
     flex-wrap: wrap;
-    justify-content: center; /* Ensures charts are spaced evenly */
-    align-items: flex-start; /* Aligns charts vertically */
-    gap: 40px; /* Adds space between charts */
-    margin: 20px auto; /* Centers the container */
-    max-width: 98%; /* Prevents it from stretching too wide */
+    justify-content: center; 
+    align-items: flex-start; 
+    gap: 40px; 
+    margin: 20px auto; 
+    max-width: 98%;
 }
 
-/*  Ensuring each chart takes up proper space */
 .chart-container div {
-    flex: 1; /* Ensures each div takes up equal space */
-    max-width: 80%; /* Limits width to fit side by side */
-    min-width: 500px; /* Ensures they don’t shrink too much */
+    flex: 1; 
+    max-width: 80%; 
+    min-width: 500px; 
 }
 
 .trends-container {
@@ -51,10 +46,9 @@ button:hover {
     max-width: 85%;
 }
 
-/* ✅ Make charts responsive */
 canvas {
-    width: 100% !important; /* Ensures the canvas fills its container */
-    height: 400px !important; /* Sets a fixed height for better consistency */
+    width: 100% !important; 
+    height: 400px !important; 
 }
 @media (max-width: 900px) {
     .chart-container {
