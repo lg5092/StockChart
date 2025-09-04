@@ -1,17 +1,10 @@
-// app.js
-// Assumes Chart.js is loaded and your HTML has:
-// - <canvas id="pricesChart"></canvas>
-// - <canvas id="trendsChart"></canvas>
-// - <input id="tickerInput" />
-// - <button id="fetchButton">Fetch</button>
-
 window.onload = function () {
     'use strict';
   
-    // ===== Backend base URL =====
+    // ===== base URL =====
     const backendUrl = "https://stockchart-ubee.onrender.com";
   
-    // ===== Inject a tiny top banner (no HTML changes needed) =====
+    // ===== top banner =====
     (function injectBanner() {
       const style = document.createElement('style');
       style.textContent = `
@@ -47,7 +40,7 @@ window.onload = function () {
       if (el) el.classList.add('hidden');
     }
   
-    // ===== Utility: retry with exponential backoff =====
+    // ===== Utility: retry=====
     async function fetchWithRetry(url, { retries = 4, delay = 1000, label = "request", options = {} } = {}) {
       for (let attempt = 0; attempt <= retries; attempt++) {
         try {
@@ -66,7 +59,7 @@ window.onload = function () {
       }
     }
 
-    // Format a UTC ms timestamp as an ET calendar date (MM/DD/YYYY) robustly.
+    // UTC ms timestamp 
 const etDate = (() => {
     let fmt;
     try {
@@ -74,10 +67,9 @@ const etDate = (() => {
         timeZone: 'America/New_York',
         year: 'numeric', month: '2-digit', day: '2-digit'
       });
-    } catch { /* very old browser fallback */ }
+    } catch { }
     return (ms) => {
       if (fmt) return fmt.format(ms);
-      // Fallback: format as UTC to avoid local TZ shifting (still better than PT)
       const d = new Date(ms);
       const y = d.getUTCFullYear();
       const m = String(d.getUTCMonth() + 1).padStart(2, '0');
@@ -159,7 +151,7 @@ const etDate = (() => {
       trendsChart.update();
     }
   
-    // ===== Data fetchers with retry + cache =====
+    // ===== Data fetchers =======
     async function fetchStockPrices(ticker) {
         const cacheKey = `prices:${ticker}`;
         try {
@@ -176,14 +168,13 @@ const etDate = (() => {
       
           const sorted = data.results.slice().sort((a, b) => a.t - b.t);
       
-          // ✅ Format daily bars in UTC so the calendar date matches the trading day
           const utcFmt = new Intl.DateTimeFormat('en-US', {
             timeZone: 'UTC',
             month: '2-digit',
             day: '2-digit',
             year: 'numeric'
           });
-          const times  = sorted.map(it => utcFmt.format(it.t)); // label as MM/DD/YYYY (UTC)
+          const times  = sorted.map(it => utcFmt.format(it.t)); 
           const prices = sorted.map(it => it.c);
       
           saveCache(cacheKey, { times, prices });
@@ -241,7 +232,7 @@ const etDate = (() => {
       }
     }
   
-    // ===== Button click handler with health warm-up, retries, and proper states =====
+    // ===== Button click handler =========
     fetchButton.addEventListener('click', async () => {
       const ticker = tickerInput.value.trim().toUpperCase();
       if (!ticker) {
@@ -253,11 +244,9 @@ const etDate = (() => {
       setBanner("Loading data… free-tier server may take a few seconds to wake.");
   
       try {
-        // Warm the backend first (avoids Render cold-start flakiness)
         try {
           await fetchWithRetry(`${backendUrl}/health`, { retries: 4, delay: 1000, label: "health" });
         } catch {
-          // proceed anyway; banner already informs user
         }
   
         const [pRes, tRes] = await Promise.allSettled([
@@ -279,14 +268,13 @@ const etDate = (() => {
       }
     });
   
-    // ===== Optional: warm backend on page load =====
+    // ===== warm backend =====
     (async () => {
       try {
         setBanner("Heads-up: backend may take a few seconds to wake (free tier). Auto-retrying…");
         await fetchWithRetry(`${backendUrl}/health`, { retries: 4, delay: 1000, label: "health" });
         hideBanner();
       } catch {
-        // keep banner visible; next click will retry
       }
     })();
   };
