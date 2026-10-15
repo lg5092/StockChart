@@ -100,6 +100,29 @@ const etDate = (() => {
     const fetchButton = document.getElementById('fetchButton');
   
     // ===== Charts =====
+    // Zoom (chartjs-plugin-zoom): drag to select a range, ctrl+wheel or pinch to zoom, shift+drag to pan
+    function chartOptions() {
+      return {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        scales: { y: { beginAtZero: false } },
+        plugins: {
+          legend: { display: true },
+          zoom: {
+            limits: { x: { minRange: 5 } },
+            pan: { enabled: true, mode: 'x', modifierKey: 'shift' },
+            zoom: {
+              mode: 'x',
+              drag: { enabled: true, backgroundColor: 'rgba(54, 162, 235, 0.15)' },
+              wheel: { enabled: true, modifierKey: 'ctrl' },
+              pinch: { enabled: true }
+            }
+          }
+        }
+      };
+    }
+
     const pricesChart = new Chart(pricesCtx, {
       type: 'line',
       data: {
@@ -107,17 +130,14 @@ const etDate = (() => {
         datasets: [{
           label: 'Stock Price (USD)',
           data: [],
-          tension: 0.2
+          tension: 0.2,
+          pointRadius: 0,
+          pointHoverRadius: 4
         }]
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: { y: { beginAtZero: false } },
-        plugins: { legend: { display: true } }
-      }
+      options: chartOptions()
     });
-  
+
     const trendsChart = new Chart(trendsCtx, {
       type: 'line',
       data: {
@@ -131,21 +151,23 @@ const etDate = (() => {
           tension: 0.2
         }]
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: { y: { beginAtZero: false } },
-        plugins: { legend: { display: true } }
-      }
+      options: chartOptions()
     });
-  
+
+    const charts = { prices: pricesChart, trends: trendsChart };
+    document.querySelectorAll('.reset-zoom').forEach(btn => {
+      btn.addEventListener('click', () => charts[btn.dataset.chart].resetZoom());
+    });
+
     function updatePricesChart(times, prices) {
+      pricesChart.resetZoom('none');
       pricesChart.data.labels = times;
       pricesChart.data.datasets[0].data = prices;
       pricesChart.update();
     }
-  
+
     function updateTrendsChart(dates, interest) {
+      trendsChart.resetZoom('none');
       trendsChart.data.labels = dates;
       trendsChart.data.datasets[0].data = interest;
       trendsChart.update();
