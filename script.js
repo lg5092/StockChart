@@ -44,7 +44,7 @@ window.onload = function () {
     async function fetchWithRetry(url, { retries = 4, delay = 1000, label = "request", options = {} } = {}) {
       for (let attempt = 0; attempt <= retries; attempt++) {
         try {
-          setBanner(`Warming backend (${label})… attempt ${attempt + 1}/${retries + 1}`);
+          setBanner(`Warming backend (free tier) (${label})… attempt ${attempt + 1}/${retries + 1}`);
           const res = await fetch(url, { cache: 'no-store', ...options });
           if (res.ok) return res;
           // Non-2xx
